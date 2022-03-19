@@ -10,4 +10,13 @@ public class AlgamoneyApiApplication {
 		SpringApplication.run(AlgamoneyApiApplication.class, args);
 	}
 
+	/*
+    @Bean(name="messageSource")
+    public ResourceBundleMessageSource bundleMessageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+    }    	
+	*/
 }
