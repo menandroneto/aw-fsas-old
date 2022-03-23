@@ -17,9 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.function.ServerRequest.Headers;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -59,7 +57,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler{
 
     // @ExceptionHandler([ EmptyResultDataAccessException.class ])
     // @ResponseStatus(HttpStatus.NOT_FOUND)
-    // public void handleEmptyResultDataAccessException(){}
+    // public_void_handleEmptyResultDataAccessException()
 
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request){
