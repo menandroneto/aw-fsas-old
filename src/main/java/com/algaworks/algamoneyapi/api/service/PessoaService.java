@@ -1,5 +1,7 @@
 package com.algaworks.algamoneyapi.api.service;
 
+import javax.validation.Valid;
+
 import com.algaworks.algamoneyapi.api.model.Pessoa;
 import com.algaworks.algamoneyapi.api.repository.PessoaRepository;
 
@@ -13,11 +15,22 @@ public class PessoaService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
-    
+
     public Pessoa atualizar(Long codigo, Pessoa pessoa){
-        Pessoa pessoaSalva = pessoaRepository.findById(codigo).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        Pessoa pessoaSalva = pessoaPeloCodigo(codigo);
         BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
         return this.pessoaRepository.save(pessoaSalva);
+    }
+    
+    public void atualizarStatus(Long codigo, @Valid Boolean status) {
+        Pessoa pessoaSalva = pessoaPeloCodigo(codigo);
+        pessoaSalva.setAtivo(status);
+        pessoaRepository.save(pessoaSalva);
+    }
+    
+    private Pessoa pessoaPeloCodigo(Long codigo) {
+        Pessoa pessoaSalva = pessoaRepository.findById(codigo).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return pessoaSalva;
     }
 
 }
