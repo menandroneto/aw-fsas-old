@@ -64,6 +64,28 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Hibernate Java 8 Support -->
+		<!--
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-java8</artifactId>
+		</dependency>
+		-->
+		<!-- Suporte do Jackson para as datas do Java 8 -->
+		<!--
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		-->
+		
+		<!-- Entre outras coisas: Suporte Tratamento de Exceções causa raiz -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
