@@ -28,7 +28,7 @@ public class PessoaService {
         pessoaRepository.save(pessoaSalva);
     }
     
-    private Pessoa pessoaPeloCodigo(Long codigo) {
+    public Pessoa pessoaPeloCodigo(Long codigo) {
         Pessoa pessoaSalva = pessoaRepository.findById(codigo).orElseThrow(() -> new EmptyResultDataAccessException(1));
         return pessoaSalva;
     }
