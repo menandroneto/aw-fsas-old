@@ -10,16 +10,21 @@ import com.algaworks.algamoneyapi.api.event.RecursoCriadoEvent;
 import com.algaworks.algamoneyapi.api.model.Categoria;
 import com.algaworks.algamoneyapi.api.repository.CategoriaRepository;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 @RestController
 @RequestMapping("/v1/categorias")
@@ -56,6 +61,14 @@ public class CategoriaResource {
         Categoria categoriaSalva = categoriaRepository.save(categoria);
         publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
+    }
+
+    @PutMapping("/{codigo}")
+    public ResponseEntity<Categoria> alterar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria, HttpServletResponse response){
+        Categoria categoriaBD = categoriaRepository.findById(codigo).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        BeanUtils.copyProperties(categoria, categoriaBD, "id");
+        Categoria categoriaSalva = categoriaRepository.save(categoriaBD);        
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaSalva);
     }
 
 }
